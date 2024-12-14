@@ -1,0 +1,205 @@
+[gd_scene load_steps=13 format=3 uid="uid://buvf41hetrsnq"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy/EnemyModel.gd" id="1_a5dc6"]
+[ext_resource type="Script" path="res://Scripts/Enemy/idle.gd" id="2_uaph3"]
+[ext_resource type="Script" path="res://Scripts/Enemy/axe_1.gd" id="2_yfin6"]
+[ext_resource type="Script" path="res://Scripts/Enemy/knife_1.gd" id="3_je4n6"]
+[ext_resource type="Script" path="res://Scripts/Enemy/staggered.gd" id="3_shcgw"]
+[ext_resource type="Script" path="res://Scripts/Enemy/evade.gd" id="3_wlssg"]
+[ext_resource type="Script" path="res://Scripts/Enemy/pursue.gd" id="4_7baoe"]
+[ext_resource type="Script" path="res://Scripts/player/resources.gd" id="12_0mu2e"]
+
+[sub_resource type="Animation" id="Animation_utwtr"]
+resource_name = "hit_1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovesDataCheck:is_parryable")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("MovesDataCheck:is_vulnerable")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MovesDataCheck:is_interruptable")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MovesDataCheck:accepts_queueing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_ipi7q"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("MovesDataCheck:is_parryable")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MovesDataCheck:is_vulnerable")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MovesDataCheck:is_interruptable")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/path = NodePath("MovesDataCheck:accepts_queueing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_6ktjp"]
+resource_name = "run"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("MovesDataCheck:is_parryable")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MovesDataCheck:is_vulnerable")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MovesDataCheck:is_interruptable")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/path = NodePath("MovesDataCheck:accepts_queueing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dyidi"]
+_data = {
+"hit_1": SubResource("Animation_utwtr"),
+"idle": SubResource("Animation_ipi7q"),
+"run": SubResource("Animation_6ktjp")
+}
+
+[node name="EnemyModel" type="Node3D"]
+script = ExtResource("1_a5dc6")
+
+[node name="idle" type="Node" parent="."]
+script = ExtResource("2_uaph3")
+
+[node name="pursue" type="Node" parent="."]
+script = ExtResource("4_7baoe")
+
+[node name="evade" type="Node" parent="."]
+script = ExtResource("3_wlssg")
+
+[node name="staggered" type="Node" parent="."]
+script = ExtResource("3_shcgw")
+
+[node name="axe_1" type="Node" parent="."]
+script = ExtResource("2_yfin6")
+
+[node name="knife_1" type="Node" parent="."]
+script = ExtResource("3_je4n6")
+
+[node name="block" type="Node" parent="."]
+
+[node name="death" type="Node" parent="."]
+
+[node name="resources" type="Node" parent="."]
+script = ExtResource("12_0mu2e")
+
+[node name="MovesData" type="Node" parent="."]
+
+[node name="MovesDataCheck" type="AnimationPlayer" parent="MovesData"]
+libraries = {
+"": SubResource("AnimationLibrary_dyidi")
+}

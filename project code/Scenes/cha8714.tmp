@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://dllw6uw0boqh"]
+
+[ext_resource type="PackedScene" uid="uid://ccj02vkvmr3vx" path="res://Scenes/player.tscn" id="1_6muoy"]
+[ext_resource type="PackedScene" uid="uid://c60dwcawjirw6" path="res://Scenes/enemytest.tscn" id="3_avlap"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1i7ru"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_asta7"]
+albedo_color = Color(1, 0.609869, 0.898394, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eijqk"]
+albedo_color = Color(0.602422, 0.794489, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2q0o1"]
+albedo_color = Color(1, 0.0509804, 0.223529, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1mfha"]
+material = SubResource("StandardMaterial3D_2q0o1")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mbriy"]
+
+[node name="character test" type="Node3D"]
+
+[node name="ground" type="CSGBox3D" parent="."]
+transform = Transform3D(0.664303, 0, 0.664303, 0, 0.939467, 0, -0.664303, 0, 0.664303, 0, 0, 0)
+use_collision = true
+size = Vector3(19, 1, 19)
+material = SubResource("StandardMaterial3D_1i7ru")
+
+[node name="side_2" type="CSGBox3D" parent="ground"]
+transform = Transform3D(0.939466, 0, -2.90376e-08, -2.90376e-08, -2.90376e-08, -0.939466, 0, 0.939467, -2.90376e-08, 0, -7, 9)
+use_collision = true
+size = Vector3(20, 1, 15)
+material = SubResource("StandardMaterial3D_asta7")
+
+[node name="side_1" type="CSGBox3D" parent="ground"]
+transform = Transform3D(0, 0.939467, -2.90376e-08, 2.90376e-08, -2.90376e-08, -0.939466, -0.939466, 0, -2.90376e-08, -9, -7, 0)
+use_collision = true
+size = Vector3(20, 1, 15)
+material = SubResource("StandardMaterial3D_eijqk")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0, 11, 22)
+fov = 29.2
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_6muoy")]
+transform = Transform3D(0.664303, 0, -0.664303, 0, 0.939467, 0, 0.664303, 0, 0.664303, 5, 0.705473, 0)
+
+[node name="Enemy" parent="." instance=ExtResource("3_avlap")]
+transform = Transform3D(0.0660649, 0, 0.997815, 0, 1, 0, -0.997815, 0, 0.0660649, -5.90245, 0.592563, 2.75173)
+
+[node name="enemy_placeholder" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 4)
+visible = false
+collision_layer = 3
+
+[node name="mesh" type="MeshInstance3D" parent="enemy_placeholder"]
+mesh = SubResource("CapsuleMesh_1mfha")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="enemy_placeholder"]
+shape = SubResource("CapsuleShape3D_mbriy")
